@@ -78,7 +78,7 @@ DATABASES = {
 
 
 # Routing
-WSGI_APPLICATION = env('DJANGO_WSGI_APPLICATION', 'suap_ead.utils.wsgi.application')
+WSGI_APPLICATION = env('DJANGO_WSGI_APPLICATION', 'suap_ead.wsgi.application')
 ALLOWED_HOSTS = env_as_list('DJANGO_ALLOWED_HOSTS', '*' if DEBUG else '')
 USE_X_FORWARDED_HOST = True
 ROOT_URLCONF = env('DJANGO_ROOT_URLCONF', 'urls')
@@ -140,7 +140,7 @@ if USE_LDAP:
     LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = env('LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN')
     LDAP_AUTH_CONNECT_TIMEOUT = env_as_int('LDAP_AUTH_CONNECT_TIMEOUT', 10)
     LDAP_AUTH_RECEIVE_TIMEOUT = env_as_int('LDAP_AUTH_RECEIVE_TIMEOUT', 10)
-    LDAP_AUTH_FORMAT_USERNAME = env('LDAP_AUTH_FORMAT_USERNAME', 'django_python3_ldap.utils.format_username_active_directory')
+    LDAP_AUTH_FORMAT_USERNAME = env('LDAP_AUTH_FORMAT_USERNAME', 'django_python3_ldap.format_username_active_directory')
     LDAP_ACTIVE_VALUE = env('LDAP_ACTIVE_VALUE', '512')
     AUTHENTICATION_BACKENDS = env_as_list('DJANGO_AUTHENTICATION_BACKENDS', 'django_python3_ldap.auth.LDAPBackend')
 
