@@ -1,4 +1,4 @@
-# EGE Django Theme
+# SUAP-EaD Django Theme
 
 ```
 pip install suap_ead
