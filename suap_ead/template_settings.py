@@ -1,23 +1,5 @@
-"""
-The MIT License (MIT)
-
-Copyright 2015 Umbrella Tech.
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"""
 from sc4py.env import env, env_as_int, env_as_bool, env_as_list, env_from_json
+import sc4net
 
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -39,7 +21,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # Apps
 MY_APPS = env_as_list('MY_APPS', '')
-EGE_LIBS = env_as_list('EGE_LIBS', 'ege_utils,ege_theme')
+SUAP_EAD_LIBS = env_as_list('SUAP_EAD_LIBS', 'suap_ead')
 DEV_APPS = env_as_list('DEV_APPS', 'debug_toolbar,django_extensions' if DEBUG else '')
 THIRD_APPS = env_as_list('THIRD_APPS', 'rest_framework')
 DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
@@ -48,7 +30,7 @@ DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
                                          'django.contrib.sessions,'
                                          'django.contrib.messages,'
                                          'django.contrib.staticfiles')
-INSTALLED_APPS = MY_APPS + EGE_LIBS + THIRD_APPS + DEV_APPS + DJANGO_APPS
+INSTALLED_APPS = MY_APPS + SUAP_EAD_LIBS + THIRD_APPS + DEV_APPS + DJANGO_APPS
 
 
 # Middleware
@@ -74,7 +56,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'ege_utils.context_processors.ege',
+                'suap_ead.context_processors.suap_ead',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -96,11 +78,11 @@ DATABASES = {
 
 
 # Routing
-WSGI_APPLICATION = env('DJANGO_WSGI_APPLICATION', 'ege_utils.wsgi.application')
+WSGI_APPLICATION = env('DJANGO_WSGI_APPLICATION', 'suap_ead.utils.wsgi.application')
 ALLOWED_HOSTS = env_as_list('DJANGO_ALLOWED_HOSTS', '*' if DEBUG else '')
 USE_X_FORWARDED_HOST = True
 ROOT_URLCONF = env('DJANGO_ROOT_URLCONF', 'urls')
-URL_PATH_PREFIX = env('URL_PATH_PREFIX', 'ege/perfil/')
+URL_PATH_PREFIX = env('URL_PATH_PREFIX', 'ead/perfil/')
 STATIC_URL = env('DJANGO_STATIC_URL', "/%s%s" % (URL_PATH_PREFIX, 'static/'))
 STATIC_ROOT = "/static/" + URL_PATH_PREFIX
 
@@ -121,7 +103,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'ege_utils.authentication.SecretDelegateAuthentication',
+        'suap_ead.authentication.SecretDelegateAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
@@ -131,12 +113,12 @@ REST_FRAMEWORK = {
 
 
 # Auth and Security... some another points impact on security, take care!
-EGE_ACESSO_JWT_AUTHORIZE = env("EGE_ACESSO_JWT_AUTHORIZE", '/ege/acesso/jwt/authorize/')
-EGE_ACESSO_JWT_VALIDATE = env("EGE_ACESSO_JWT_VALIDATE", 'http://acesso:8000/ege/acesso/jwt/validate/')
-EGE_ACESSO_JWT_LOGOUT = env("EGE_ACESSO_JWT_LOGOUT", 'http://acesso:8000/ege/acesso/logout/')
-EGE_ACESSO_JWT_CLIENT_ID = env("EGE_ACESSO_JWT_CLIENT_ID", '_EGE_ACESSO_JWT_CLIENT_ID_')
-EGE_ACESSO_JWT_SECRET = env("EGE_ACESSO_JWT_SECRET", '_EGE_ACESSO_JWT_SECRET_')
-EGE_UTILS_AUTH_JWT_BACKEND = env("EGE_UTILS_AUTH_JWT_BACKEND", 'ege_utils.backends.PreExistentUserJwtBackend')
+SUAP_EAD_ACESSO_JWT_AUTHORIZE = env("SUAP_EAD_ACESSO_JWT_AUTHORIZE", '/ead/acesso/jwt/authorize/')
+SUAP_EAD_ACESSO_JWT_VALIDATE = env("SUAP_EAD_ACESSO_JWT_VALIDATE", 'http://acesso:8000/ead/acesso/jwt/validate/')
+SUAP_EAD_ACESSO_JWT_LOGOUT = env("SUAP_EAD_ACESSO_JWT_LOGOUT", 'http://acesso:8000/ead/acesso/logout/')
+SUAP_EAD_ACESSO_JWT_CLIENT_ID = env("SUAP_EAD_ACESSO_JWT_CLIENT_ID", '_SUAP_EAD_ACESSO_JWT_CLIENT_ID_')
+SUAP_EAD_ACESSO_JWT_SECRET = env("SUAP_EAD_ACESSO_JWT_SECRET", '_SUAP_EAD_ACESSO_JWT_SECRET_')
+SUAP_EAD_UTILS_AUTH_JWT_BACKEND = env("SUAP_EAD_UTILS_AUTH_JWT_BACKEND", 'suap_ead.backends.PreExistentUserJwtBackend')
 SECRET_KEY = env('DJANGO_SECRET_KEY', 'changeme')
 LOGIN_URL = env("DJANGO_LOGIN_URL", URL_PATH_PREFIX + 'jwt/login')
 LOGOUT_URL = env("DJANGO_LOGOUT_URL", URL_PATH_PREFIX + 'logout/')
@@ -161,3 +143,5 @@ if USE_LDAP:
     LDAP_AUTH_FORMAT_USERNAME = env('LDAP_AUTH_FORMAT_USERNAME', 'django_python3_ldap.utils.format_username_active_directory')
     LDAP_ACTIVE_VALUE = env('LDAP_ACTIVE_VALUE', '512')
     AUTHENTICATION_BACKENDS = env_as_list('DJANGO_AUTHENTICATION_BACKENDS', 'django_python3_ldap.auth.LDAPBackend')
+
+sc4net.default_headers = {"Authorization": "Secret %s" % SUAP_EAD_ACESSO_JWT_SECRET}

@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-# from setuptools import setup
-from distutils.core import setup
+from setuptools import setup
+# from distutils.core import setup
 setup(
     name='suap_ead',
     description='Utils and theme classes for SUAP-EAD project services',
@@ -8,7 +7,7 @@ setup(
     license='MIT',
     author='Kelson da Costa Medeiros, Luiz Antonio Freitas de Assis',
     author_email='kelsoncm@gmail.com, luizvpc@gmail.com',
-    packages=['suap_ead', 'suap_ead/migrations', 'suap_ead/static', 'suap_ead/templates', 'suap_ead/templatetags'],
+    packages=['suap_ead'],
     include_package_data=True,
     version='lib_version',
     download_url='https://github.com/suap-ead/lib_suap_ead/releases/tag/lib_version',

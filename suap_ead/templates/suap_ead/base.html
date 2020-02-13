@@ -55,7 +55,7 @@
                                       <span class="md-icon text-white">menu</span>
                                   </button>
                                   <div class="d-none d-md-flex flex-row justify-content-left logo">
-                                      <img class="w-50 ml-4" src="{% static 'img/ege branco.svg' %}" alt="Ecossistema de Gestão em Educação">
+                                      <img class="w-50 ml-4" src="{% static 'img/sua_ead_branco.svg' %}" alt="Ecossistema de Gestão em Educação">
                                   </div>
                               </div>
 
@@ -73,7 +73,7 @@
                                                   <span class="position-absolute" style="top: 5px"><a href="#" class="text-white d-flex justify-content-center align-items-center" style="font-size: 12px; background: red; border-radius: 50%; width: 12px; height: 12px;">${countChat}</a></span>
                                               </div>
                                               <div id="top-user" class="top-perfil ml-3 ml-md-0" @click="r_menu_toogle" :style="top_perfil_style">
-                                                  <span><a href="#" class="text-white">{% firstof ege.user.photo_url ege.user.presentation_name|make_list|first %}</a></span>
+                                                  <span><a href="#" class="text-white">{% firstof suap_ead.user.photo_url suap_ead.user.presentation_name|make_list|first %}</a></span>
                                               </div>
                                           </div>
                                       </div>
@@ -93,7 +93,7 @@
                                         <span class="md-icon"><a href="#" class="text-white">account_circle</a></span>
                                     </div>
                                     <h5 class="p-4 text-center">
-                                        {% trans 'Welcome, ' %}<span class="text-bold">{% firstof ege.user.social_name user.get_username %}!</span>
+                                        {% trans 'Welcome, ' %}<span class="text-bold">{% firstof suap_ead.user.social_name user.get_username %}!</span>
                                     </h5>
 
                                     <select id="select" v-model="selected" class="custom-select select-theme mb-4 w-75" @change="change_color">

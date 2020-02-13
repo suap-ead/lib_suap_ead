@@ -1,7 +1,14 @@
 from sc4net import get_json
+from django.contrib.auth import get_user_model, login
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import exceptions
 from rest_framework.authentication import BaseAuthentication, get_authorization_header
+
+
+class SuapEadUser:
+    def __init__(self, user, profile):
+        self.user = user
+        self.profile = profile
 
 
 class SecretDelegateAuthentication(BaseAuthentication):
@@ -33,9 +40,23 @@ class SecretDelegateAuthentication(BaseAuthentication):
         return self.authenticate_credentials(token)
 
     def authenticate_credentials(self, secret):
-        result = get_json('http://acesso:8000/ege/acesso/api/v1/secret/%s/' % secret)
+        result = get_json('http://acesso:8000/sead/acesso/api/v1/secret/%s/' % secret)
         print(result)
         return None
 
     def authenticate_header(self, request):
         return self.keyword
+
+
+class PreExistentUserJwtBackend:
+    def login_user(self, request, user_data):
+        user = get_user_model().objects.get(username=user_data['username'])
+        login(request, user, backend=None)
+        request.session['suap_ead'] = SuapEadUser(user_data)
+
+
+class CreateNewUserJwtBackend:
+    def login_user(self, request, user_data):
+        user, created = get_user_model().objects.get_or_create(username=user_data['username'])
+        login(request, user, backend=None)
+        request.session["suap_ead"] = {"user": user_data}

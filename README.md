@@ -1,15 +1,15 @@
 # EGE Django Theme
 
 ```
-pip install ege-theme
+pip install suap_ead
 ```
 
 Em ```settings.py```:
 
-Adicione a aplicação,```ege_theme```, à variável de configuração ```INSTALLED_APPS``` antes das aplicações do django:
+Adicione a aplicação,```suap_ead```, à variável de configuração ```INSTALLED_APPS``` antes das aplicações do django:
 
 ```
-INSTALLED_APPS = 'ege_theme',
+INSTALLED_APPS = 'suap_ead',
                  'django.contrib.admin',
                  'django.contrib.auth',
                  ......................
@@ -17,22 +17,22 @@ INSTALLED_APPS = 'ege_theme',
   
 Certifique-se de que está setada a variável ```STATIC_URL = '/static/'```.
 
-# ege_utils
-ege_utils
+# suap_ead
+suap_ead
 
 ## How to install 
 ```sh
-pip install ege_utils
+pip install suap_ead
 ```
 
 ## How to build
 ```sh
-git clone git@github.com:CoticEaDIFRN/ege_utils.git
-cd ege_utils
+git clone git@github.com:suap-ead/lib_suap_ead.git
+cd suap_ead
 # local build only
-./release.sh 1.3
+./release.sh -l 1.3
 # local build, send to Github, publish to PyPI
-./release.sh -d 1.3
+./release.sh -a 1.3
 ```
 
 # MIT License

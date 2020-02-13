@@ -46,13 +46,13 @@ build_docker() {
 
 lint_project() {
   printf "\n\nLINT project $PROJECT_NAME $VERSION\n"
-  docker run --rm -it  -v `pwd`:/src $FULL_IMAGE_NAME:latest sh -c 'flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics && flake8 . --exclude=test_ege_utils/settings.py --count --max-complexity=10 --max-line-length=127 --statistics'
+  docker run --rm -it  -v `pwd`:/src $FULL_IMAGE_NAME:latest sh -c 'flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics && flake8 . --exclude=test_suap_ead/settings.py --count --max-complexity=10 --max-line-length=127 --statistics'
 }
 
 test_project() {
   printf "\n\nTEST project $PROJECT_NAME $VERSION - skiped\n"
   # docker run --rm -it  -v `pwd`:/src $FULL_IMAGE_NAME:latest sh -c 'pip install /src && coverage run --source="." manage.py test . test_me && coverage report -m' 
-  # ./test_ege_utils/settings.py:1:1:
+  # ./test_suap_ead/settings.py:1:1:
 }
 
 build_project() {
