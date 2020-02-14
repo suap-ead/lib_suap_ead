@@ -33,8 +33,8 @@ class LoginView(View):
         if request.user.is_authenticated:
             return redirect(settings.LOGIN_REDIRECT_URL)
         else:
-            data = {'client_id': settings.SUAP_EAD_ACESSO_JWT_CLIENT_ID, 'uuid': '%s' % uuid.uuid1()}
-            transaction_token = jwt.encode(data, settings.SUAP_EAD_ACESSO_JWT_SECRET, algorithm='HS512').decode("utf-8")
+            data = {'client_id': settings.SUAP_EAD_ID_JWT_CLIENT_ID, 'uuid': '%s' % uuid.uuid1()}
+            transaction_token = jwt.encode(data, settings.SUAP_EAD_ID_JWT_SECRET, algorithm='HS512').decode("utf-8")
             request.session['transaction_token'] = transaction_token
 
             original_next = quote_plus(request.GET.get('next', settings.LOGIN_REDIRECT_URL))
@@ -43,8 +43,8 @@ class LoginView(View):
             redirect_uri = quote_plus('%s?original_next=%s' % (root_site_path, original_next))
 
             return redirect('%s?client_id=%s&state=%s&redirect_uri=%s' %
-                            (settings.SUAP_EAD_ACESSO_JWT_AUTHORIZE,
-                             settings.SUAP_EAD_ACESSO_JWT_CLIENT_ID,
+                            (settings.SUAP_EAD_ID_JWT_AUTHORIZE,
+                             settings.SUAP_EAD_ID_JWT_CLIENT_ID,
                              transaction_token,
                              redirect_uri))
 
@@ -53,11 +53,11 @@ class CompleteView(View):
     @csrf_exempt
     def get(self, request):
         user_response = requests.get('%s?client_id=%s&auth_token=%s' %
-                                     (settings.SUAP_EAD_ACESSO_JWT_VALIDATE,
-                                      settings.SUAP_EAD_ACESSO_JWT_CLIENT_ID,
+                                     (settings.SUAP_EAD_ID_JWT_VALIDATE,
+                                      settings.SUAP_EAD_ID_JWT_CLIENT_ID,
                                       request.GET['auth_token']))
 
-        user_data = jwt.decode(user_response.text, settings.SUAP_EAD_ACESSO_JWT_SECRET, algorithm='HS512')
+        user_data = jwt.decode(user_response.text, settings.SUAP_EAD_ID_JWT_SECRET, algorithm='HS512')
 
         if user_response.status_code != 200:
             raise Exception("Authentication erro! Invalid status code %s." % (user_response.status_code, ))
@@ -74,4 +74,4 @@ class CompleteView(View):
 
 def jwt_logout(request):
     auth_logout(request)
-    return redirect(settings.SUAP_EAD_ACESSO_JWT_LOGOUT)
+    return redirect(settings.SUAP_EAD_ID_JWT_LOGOUT)

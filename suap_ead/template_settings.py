@@ -113,11 +113,11 @@ REST_FRAMEWORK = {
 
 
 # Auth and Security... some another points impact on security, take care!
-SUAP_EAD_ACESSO_JWT_AUTHORIZE = env("SUAP_EAD_ACESSO_JWT_AUTHORIZE", '/ead/acesso/jwt/authorize/')
-SUAP_EAD_ACESSO_JWT_VALIDATE = env("SUAP_EAD_ACESSO_JWT_VALIDATE", 'http://acesso:8000/ead/acesso/jwt/validate/')
-SUAP_EAD_ACESSO_JWT_LOGOUT = env("SUAP_EAD_ACESSO_JWT_LOGOUT", 'http://acesso:8000/ead/acesso/logout/')
-SUAP_EAD_ACESSO_JWT_CLIENT_ID = env("SUAP_EAD_ACESSO_JWT_CLIENT_ID", '_SUAP_EAD_ACESSO_JWT_CLIENT_ID_')
-SUAP_EAD_ACESSO_JWT_SECRET = env("SUAP_EAD_ACESSO_JWT_SECRET", '_SUAP_EAD_ACESSO_JWT_SECRET_')
+SUAP_EAD_ID_JWT_AUTHORIZE = env("SUAP_EAD_ID_JWT_AUTHORIZE", '/ead/id/jwt/authorize/')
+SUAP_EAD_ID_JWT_VALIDATE = env("SUAP_EAD_ID_JWT_VALIDATE", 'http://id:8000/ead/id/jwt/validate/')
+SUAP_EAD_ID_JWT_LOGOUT = env("SUAP_EAD_ID_JWT_LOGOUT", 'http://id:8000/ead/id/logout/')
+SUAP_EAD_ID_JWT_CLIENT_ID = env("SUAP_EAD_ID_JWT_CLIENT_ID", '_SUAP_EAD_ID_JWT_CLIENT_ID_')
+SUAP_EAD_ID_JWT_SECRET = env("SUAP_EAD_ID_JWT_SECRET", '_SUAP_EAD_ID_JWT_SECRET_')
 SUAP_EAD_UTILS_AUTH_JWT_BACKEND = env("SUAP_EAD_UTILS_AUTH_JWT_BACKEND", 'suap_ead.backends.PreExistentUserJwtBackend')
 SECRET_KEY = env('DJANGO_SECRET_KEY', 'changeme')
 LOGIN_URL = env("DJANGO_LOGIN_URL", URL_PATH_PREFIX + 'jwt/login')
@@ -144,4 +144,4 @@ if USE_LDAP:
     LDAP_ACTIVE_VALUE = env('LDAP_ACTIVE_VALUE', '512')
     AUTHENTICATION_BACKENDS = env_as_list('DJANGO_AUTHENTICATION_BACKENDS', 'django_python3_ldap.auth.LDAPBackend')
 
-sc4net.default_headers = {"Authorization": "Secret %s" % SUAP_EAD_ACESSO_JWT_SECRET}
+sc4net.default_headers = {"Authorization": "Secret %s" % SUAP_EAD_ID_JWT_SECRET}

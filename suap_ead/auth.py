@@ -40,7 +40,7 @@ class SecretDelegateAuthentication(BaseAuthentication):
         return self.authenticate_credentials(token)
 
     def authenticate_credentials(self, secret):
-        result = get_json('http://acesso:8000/sead/acesso/api/v1/secret/%s/' % secret)
+        result = get_json('http://id:8000/sead/id/api/v1/secret/%s/' % secret)
         print(result)
         return None
 
