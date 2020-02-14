@@ -10,6 +10,7 @@ setup(
     packages=['suap_ead'],
     include_package_data=True,
     version='0.1.0',
+
     download_url='https://github.com/suap-ead/lib_suap_ead/releases/tag/0.1.0',
     url='https://github.com/suap-ead/lib_suap_ead',
     keywords=['SUAP', 'EAD', 'complemento', 'JWT', 'Django', 'Auth', 'SSO', 'client', 'Theme', ],
