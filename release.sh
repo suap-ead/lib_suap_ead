@@ -57,7 +57,7 @@ test_project() {
 
 build_project() {
   printf "\n\nBUILD project $PROJECT_NAME $VERSION\n"
-  docker run --rm -it  -v `pwd`:/src $FULL_IMAGE_NAME:latest sh -c 'python setup.py sdist' 
+  docker run --rm -it  -v `pwd`:/src $FULL_IMAGE_NAME:latest sh -c 'python setup.py sdist && chmod -R 777 dist && chmod -R 777 suap_ead.egg-info' 
 }
 
 
