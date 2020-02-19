@@ -73,7 +73,7 @@
                                                   <span class="position-absolute" style="top: 5px"><a href="#" class="text-white d-flex justify-content-center align-items-center" style="font-size: 12px; background: red; border-radius: 50%; width: 12px; height: 12px;">${countChat}</a></span>
                                               </div>
                                               <div id="top-user" class="top-perfil ml-3 ml-md-0" @click="r_menu_toogle" :style="top_perfil_style">
-                                                  <span><a href="#" class="text-white">{% firstof suap_ead.user.photo_url suap_ead.user.presentation_name|make_list|first %}</a></span>
+                                                  <span><a href="#" class="text-white">{{ suap_ead.user.sigla }}</a></span>
                                               </div>
                                           </div>
                                       </div>
@@ -93,7 +93,7 @@
                                         <span class="md-icon"><a href="#" class="text-white">account_circle</a></span>
                                     </div>
                                     <h5 class="p-4 text-center">
-                                        {% trans 'Welcome, ' %}<span class="text-bold">{% firstof suap_ead.user.social_name user.get_username %}!</span>
+                                        {% trans 'Bem vindo, ' %}<span class="text-bold">{% firstof suap_ead.user.social_name user.get_username %}!</span>
                                     </h5>
 
                                     <select id="select" v-model="selected" class="custom-select select-theme mb-4 w-75" @change="change_color">
@@ -129,7 +129,7 @@
 
     {% block content_main %}
         <div id="content-main" class="d-flex w-100">
-            <div id="content-adm" class="w-100 text-center" :style="content_style">
+            <div id="content-adm" class="w-100" :style="content_style">
                 {% block breadcrumbs %}{% endblock %}
                 <div class="d-flex flex-column align-items-center">
                     <div id="content" class="col-12 col-md-11 mt-3">

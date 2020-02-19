@@ -5,10 +5,12 @@ from rest_framework import exceptions
 from rest_framework.authentication import BaseAuthentication, get_authorization_header
 
 
-class SuapEadUser:
-    def __init__(self, user, profile):
-        self.user = user
-        self.profile = profile
+# class SuapEadUser:
+#     def __init__(self, user, profile=None):
+#         self.user = user
+#         self.profile = profile
+def suap_ead_user(user, profile=None):
+    return {'user': user, 'profile': profile}
 
 
 class SecretDelegateAuthentication(BaseAuthentication):
@@ -52,11 +54,13 @@ class PreExistentUserJwtBackend:
     def login_user(self, request, user_data):
         user = get_user_model().objects.get(username=user_data['username'])
         login(request, user, backend=None)
-        request.session['suap_ead'] = SuapEadUser(user_data)
+        print (user_data)
+        request.session['suap_ead'] = suap_ead_user(user_data)
 
 
 class CreateNewUserJwtBackend:
     def login_user(self, request, user_data):
         user, created = get_user_model().objects.get_or_create(username=user_data['username'])
         login(request, user, backend=None)
-        request.session["suap_ead"] = {"user": user_data}
+        print (user_data)
+        request.session["suap_ead"] = suap_ead_user(user_data)
