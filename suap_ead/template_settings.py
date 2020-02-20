@@ -2,7 +2,7 @@ from sc4py.env import env, env_as_int, env_as_bool, env_as_list, env_from_json
 import sc4net
 
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
+ 
 # Development
 DEBUG = env_as_bool('DJANGO_DEBUG', True)
 LOGGING = {
@@ -112,20 +112,30 @@ REST_FRAMEWORK = {
 }
 
 # Session
-SESSION_CACHE_ALIAS = env("DJANGO_SESSION_CACHE_ALIAS", 'default')
+session_slug = URL_PATH_PREFIX.replace("/", "")
+# SESSION_CACHE_ALIAS = env("DJANGO_SESSION_CACHE_ALIAS", 'default')
 SESSION_COOKIE_AGE = env_as_int('DJANGO_SESSION_COOKIE_AGE', 1209600)
 SESSION_COOKIE_DOMAIN = env('DJANGO_SESSION_COOKIE_DOMAIN', None)
 SESSION_COOKIE_HTTPONLY = env_as_bool('SDJANGO_ESSION_COOKIE_HTTPONLY', True)
-SESSION_COOKIE_NAME = env("DJANGO_SESSION_COOKIE_NAME", URL_PATH_PREFIX.replace("/", "") + '_sessionid')
-SESSION_COOKIE_PATH = env("DJANGO_SESSION_COOKIE_PATH", URL_PATH_PREFIX)
+SESSION_COOKIE_NAME = env("DJANGO_SESSION_COOKIE_NAME", '%s_sessionid' % session_slug)
+SESSION_COOKIE_PATH = env("DJANGO_SESSION_COOKIE_PATH", '/')
 SESSION_COOKIE_SAMESITE = env("DJANGO_SESSION_COOKIE_SAMESITE", 'Lax')
 SESSION_COOKIE_SECURE = env_as_bool('DJANGO_SESSION_COOKIE_SECURE', False)
-SESSION_ENGINE = env("DJANGO_SESSION_ENGINE", 'django.contrib.sessions.backends.db')
+SESSION_ENGINE = env("DJANGO_SESSION_ENGINE", 'redis_sessions.session')
 SESSION_EXPIRE_AT_BROWSER_CLOSE = env_as_bool('DJANGO_SESSION_EXPIRE_AT_BROWSER_CLOSE', False)
 SESSION_FILE_PATH = env('DJANGO_SESSION_FILE_PATH', None)
 SESSION_SAVE_EVERY_REQUEST = env_as_bool('DJANGO_SESSION_SAVE_EVERY_REQUEST', False)
 SESSION_SERIALIZER = env("DJANGO_SESSION_SERIALIZER", 'django.contrib.sessions.serializers.JSONSerializer')
-SESSION_REDIS = env_from_json('DJANGO_SESSION_REDIS', {}, True)
+
+SESSION_REDIS = {
+    'host': env("DJANGO_SESSION_REDIS_HOST", 'redis'),
+    'port': env_as_int("DJANGO_SESSION_REDIS_PORT", 6379),
+    'db': env_as_int("DJANGO_SESSION_REDIS_DB", 0),
+    'password': env("DJANGO_SESSION_REDIS_PASSWORD", 'redis_password'),
+    'prefix': env("DJANGO_SESSION_REDIS_PREFIX", '%s_session' % session_slug),
+    'socket_timeout': env("DJANGO_SESSION_REDIS_SOCKET_TIMEOUT", 0.1),
+    'retry_on_timeout': env("DJANGO_SESSION_REDIS_RETRY_ON_TIMEOUT", False),
+}
 print(SESSION_REDIS)
 
 # Auth and Security... some another points impact on security, take care!
