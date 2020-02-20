@@ -136,7 +136,6 @@ SESSION_REDIS = {
     'socket_timeout': env("DJANGO_SESSION_REDIS_SOCKET_TIMEOUT", 0.1),
     'retry_on_timeout': env("DJANGO_SESSION_REDIS_RETRY_ON_TIMEOUT", False),
 }
-print(SESSION_REDIS)
 
 # Auth and Security... some another points impact on security, take care!
 SUAP_EAD_ID_JWT_AUTHORIZE = env("SUAP_EAD_ID_JWT_AUTHORIZE", '/ead/id/jwt/authorize/')

@@ -43,7 +43,6 @@ class SecretDelegateAuthentication(BaseAuthentication):
 
     def authenticate_credentials(self, secret):
         result = get_json('http://id:8000/sead/id/api/v1/secret/%s/' % secret)
-        print(result)
         return None
 
     def authenticate_header(self, request):
@@ -54,7 +53,6 @@ class PreExistentUserJwtBackend:
     def login_user(self, request, user_data):
         user = get_user_model().objects.get(username=user_data['username'])
         login(request, user, backend=None)
-        print (user_data)
         request.session['suap_ead'] = suap_ead_user(user_data)
 
 
@@ -62,5 +60,4 @@ class CreateNewUserJwtBackend:
     def login_user(self, request, user_data):
         user, created = get_user_model().objects.get_or_create(username=user_data['username'])
         login(request, user, backend=None)
-        print (user_data)
         request.session["suap_ead"] = suap_ead_user(user_data)
