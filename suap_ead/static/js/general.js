@@ -220,56 +220,62 @@ const modal = new Vue ({
 
 });
 
-const filter = new Vue({
-    el: "#changelist-filter",
-    delimiters: ['${', '}'],
-    data: {
-        filter_seen: false,
-    },
-    methods: {
-        show_filter: function () {
-            this.filter_seen = !this.filter_seen;
-        }
-    },
-});
-
-const error = new Vue({
-    el: "#error",
-    delimiters: ['${', '}'],
-    data: {
-        error_seen: false,
-    },
-    methods: {
-
-    },
-    mounted() {
-        this.error_seen = true;
-    },
-    updated() {
-        swal({
-          title: 'Usuário ou senha incorretos',
-          text: '',
-          icon: 'warning',
-        });
-    },
-});
-
-const result = new Vue({
-    el: "#result_cards",
-    data: {
-        btn_action: false
-    },
-    methods: {
-        check_all: function (event) {
-            const check_content = document.getElementById('card-content').getElementsByTagName('input');
-            for (var i = 0; i < check_content.length; i++){
-                check_content[i].checked = event.target.checked;
+if (document.getElementById("changelist-filter")) {
+    const filter = new Vue({
+        el: "#changelist-filter",
+        delimiters: ['${', '}'],
+        data: {
+            filter_seen: false,
+        },
+        methods: {
+            show_filter: function () {
+                this.filter_seen = !this.filter_seen;
             }
         },
-        show_actions: function (event) {
-            const a = event.target.parentNode.parentNode.parentNode.lastChild;
-            if (a.classList.length === 3) { a.className += ' d-flex' }
-            else { a.className = 'btn-group btn-group-sm btn-group-vertical' }
-        }
-    },
-});
+    });
+};
+
+if (document.getElementById("error")) {
+    const error = new Vue({
+        el: "#error",
+        delimiters: ['${', '}'],
+        data: {
+            error_seen: false,
+        },
+        methods: {
+
+        },
+        mounted() {
+            this.error_seen = true;
+        },
+        updated() {
+            swal({
+            title: 'Usuário ou senha incorretos',
+            text: '',
+            icon: 'warning',
+            });
+        },
+    });
+};
+
+if (document.getElementById("result_cards")) {
+    const result = new Vue({
+        el: "#result_cards",
+        data: {
+            btn_action: false
+        },
+        methods: {
+            check_all: function (event) {
+                const check_content = document.getElementById('card-content').getElementsByTagName('input');
+                for (var i = 0; i < check_content.length; i++){
+                    check_content[i].checked = event.target.checked;
+                }
+            },
+            show_actions: function (event) {
+                const a = event.target.parentNode.parentNode.parentNode.lastChild;
+                if (a.classList.length === 3) { a.className += ' d-flex' }
+                else { a.className = 'btn-group btn-group-sm btn-group-vertical' }
+            }
+        },
+    });
+};
