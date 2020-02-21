@@ -23,7 +23,8 @@ DEBUG_TOOLBAR_CONFIG = {
 MY_APPS = env_as_list('MY_APPS', '')
 SUAP_EAD_LIBS = env_as_list('SUAP_EAD_LIBS', 'suap_ead')
 DEV_APPS = env_as_list('DEV_APPS', 'debug_toolbar,django_extensions' if DEBUG else '')
-THIRD_APPS = env_as_list('THIRD_APPS', 'rest_framework')
+THIRD_APPS = env_as_list('THIRD_APPS', 'rest_framework_swagger,'
+                                       'rest_framework')
 DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
                                          'django.contrib.auth,'
                                          'django.contrib.contenttypes,'
