@@ -58,6 +58,51 @@
 
     {% block extrahead %}{% endblock %}
 
+    <style>
+        #topbar {
+            padding: 10px 20px;
+            background: rgb(36, 112, 198);
+            display: table;
+            width: 100%;
+        }
+        #topbar_logo {
+            width: 178px; 
+            display: table-cell;
+            margin: -18px 20px 0 0;
+        }
+        #topbar_logo img {
+            height: 40px;
+            width: 138px;
+            margin-top: -15px;
+        }
+        #topbar_page_title {
+            display: table-cell;
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 2rem;
+            color: #fff;
+            text-align: center;
+            width: auto;
+        }
+        #topbar_page_title a {
+            max-height: 40px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        #topbar_user_menu {
+            background: rgb(51, 88, 142);
+            display: table-cell;
+            width: 48px; 
+            height: 20px;
+            border-radius: 50%;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: 900;
+            margin-left: 20px;
+        }
+    </style>
+
 </head>
 
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
@@ -68,13 +113,23 @@
 
     <!-- BEGIN branding -->
     {% if not is_popup %}{% block branding %}
+
+
     <div id="branding" class="h-100">
-        <!-- BEGIN top_bar -->
-        {% block top_bar %}
+        <!-- BEGIN topbar -->
+        {% block topbar %}
+        <div id="topbar">
+            <div id="topbar_logo" ><a href="#"><img style="" src="/sead/dashboard/static/img/sead_branco.svg" alt="Educação a Distância"></a></div>
+            <div id="topbar_page_title">{% block page-title %}<a href="{% url 'admin:index' %}">Ecossistema de Gestão em Educação</a>{% endblock %}</div>
+            <div id="topbar_user_menu" @click="r_menu_toogle" ><span><a href="#" class="text-white">{{ suap_ead.user.sigla }}</a></span></div>
+        </div>
+<!--
+        <br>
+
         <div id="topbar" class="page-container">
             <div class="md-app" name="reveal">
                 <div id="vuejs_menu" class="md-app-toolbar md-primary menu w-100 text-white" :style="top_menu_style">
-                    <div style="width: 15%">
+                    <div style="width: 192px;">
                         <button id="btn-menu" class="md-button md-icon-button f-left d-md-none" @click="l_menu_toogle">
                             <span class="md-icon text-white">menu</span>
                         </button>
@@ -82,10 +137,9 @@
                             <img class="w-50 ml-4" src="{% static 'img/sead_branco.svg' %}" alt="Ecossistema de Gestão em Educação">
                         </div>
                     </div>
-
-                    <div class="d-flex flex-row justify-content-between align-items-center w-100 h-100">
-                        <div class="d-flex flex-row w-100">
-                            <h2 class="text-white text-center col-10 m-0">{% block page-title %}<a href="{% url 'admin:index' %}">Ecossistema de Gestão em Educação</a>{% endblock %}</h2>
+                    <div style="width: calc(100% - 192px);">
+                        <div class="text-center w-100">
+                            <h2 class="text-white text-center col-10 m-0"><a href="{% url 'admin:index' %}">Ecossistema de Gestão em Educação</a></h2>
                             <div id="icons-top" class="pr-md-5 h-100 col">
                                 <div class="d-flex flex-row justify-end align-items-center h-100">
                                     <div class="md-avatar md-avatar-icon d-flex flex-row justify-content-end mr-lg-3" v-if="countNotificationSeen" style="border-radius: 0">
@@ -106,8 +160,9 @@
                 </div>
             </div>
         </div>
-        {% endblock top_bar %}
-        <!-- END top_bar -->
+    -->
+        {% endblock topbar %}
+        <!-- END topbar -->
 
         <!-- BEGIN user_menu -->
         {% block user_menu %}
