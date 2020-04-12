@@ -12,6 +12,7 @@ LOGGING = {
     'loggers': {
         '': {'handlers': ['console'], 'level': 'DEBUG'},
         'parso': {'handlers': ['console'], 'level': 'INFO'},
+        'asyncio': {'level': 'WARNING',},
     },
 }
 DEBUG_TOOLBAR_CONFIG = {
