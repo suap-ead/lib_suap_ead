@@ -86,8 +86,9 @@ USE_X_FORWARDED_HOST = True
 ROOT_URLCONF = env('DJANGO_ROOT_URLCONF', 'urls')
 URL_PATH_PREFIX = env('URL_PATH_PREFIX', 'sead/id/')
 STATIC_URL = env('DJANGO_STATIC_URL', "/%s%s" % (URL_PATH_PREFIX, 'static/'))
-STATIC_ROOT = "/static/" + URL_PATH_PREFIX
-
+STATIC_ROOT = env('DJANGO_STATIC_ROOT', "/static/" + URL_PATH_PREFIX)
+MEDIA_URL = env('DJANGO_MEDIA_URL', "/%s%s" % (URL_PATH_PREFIX, 'media/'))
+MEDIA_ROOT = env('DJANGO_MEDIA_ROOT', '/media/' + URL_PATH_PREFIX)
 
 # Localization
 LANGUAGE_CODE = env('DJANGO_USE_I18N', 'pt-br')
