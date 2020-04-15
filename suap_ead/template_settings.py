@@ -15,6 +15,10 @@ LOGGING = {
         'asyncio': {'level': 'WARNING',},
     },
 }
+
+if env_as_bool('DJANGO_DEBUG_SQL', False):
+    LOGGING['loggers']['django.db.backends'] = {'level': 'DEBUG','handlers': ['console', ],}
+
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: request.get_host() in ['localhost', '127.0.0.1', 'sso'],
 }
