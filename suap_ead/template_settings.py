@@ -1,8 +1,7 @@
 from sc4py.env import env, env_as_int, env_as_bool, env_as_list, env_from_json
 import sc4net
 
-# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
- 
+
 # Development
 DEBUG = env_as_bool('DJANGO_DEBUG', True)
 LOGGING = {
@@ -12,12 +11,12 @@ LOGGING = {
     'loggers': {
         '': {'handlers': ['console'], 'level': 'DEBUG'},
         'parso': {'handlers': ['console'], 'level': 'INFO'},
-        'asyncio': {'level': 'WARNING',},
+        'asyncio': {'level': 'WARNING'}
     },
 }
 
 if env_as_bool('DJANGO_DEBUG_SQL', False):
-    LOGGING['loggers']['django.db.backends'] = {'level': 'DEBUG','handlers': ['console', ],}
+    LOGGING['loggers']['django.db.backends'] = {'level': 'DEBUG', 'handlers': ['console']}
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: request.get_host() in ['localhost', '127.0.0.1', 'sso'],
@@ -63,7 +62,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'suap_ead.context_processors.suap_ead',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages'
             ],
         },
     },
