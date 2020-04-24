@@ -15,8 +15,12 @@ LOGGING = {
     },
 }
 
+
 if env_as_bool('DJANGO_DEBUG_SQL', False):
     LOGGING['loggers']['django.db.backends'] = {'level': 'DEBUG', 'handlers': ['console']}
+
+if env_as_bool('DJANGO_DEBUG_LDAP', False):
+    LOGGING['loggers']['django_auth_ldap'] = {'level': 'DEBUG', 'handlers': ['console']}
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: request.get_host() in ['localhost', '127.0.0.1', 'sso'],
@@ -117,6 +121,20 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
 }
+
+# Email
+EMAIL_BACKEND=env("DJANGO_EMAIL_BACKEND", 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST=env("DJANGO_EMAIL_HOST", 'localhost')
+EMAIL_PORT=env_as_int("DJANGO_EMAIL_PORT", 25)
+EMAIL_HOST_USER=env("DJANGO_EMAIL_HOST_USER", '')
+EMAIL_HOST_PASSWORD=env("DJANGO_EMAIL_HOST_PASSWORD", '')
+EMAIL_SUBJECT_PREFIX=env("DJANGO_EMAIL_SUBJECT_PREFIX", '[SEAD] ')
+EMAIL_USE_LOCALTIME=env_as_bool("DJANGO_EMAIL_USE_LOCALTIME", False)
+EMAIL_USE_TLS=env_as_bool("DJANGO_EMAIL_USE_TLS", False)
+EMAIL_USE_SSL=env_as_bool("DJANGO_EMAIL_USE_SSL", False)
+EMAIL_SSL_CERTFILE=env("DJANGO_EMAIL_SSL_CERTFILE", None)
+EMAIL_SSL_KEYFILE=env("DJANGO_EMAIL_SSL_KEYFILE", None)
+EMAIL_TIMEOUT=env_as_int("DJANGO_EMAIL_TIMEOUT", None)
 
 # Session
 session_slug = URL_PATH_PREFIX.replace("/", "")
