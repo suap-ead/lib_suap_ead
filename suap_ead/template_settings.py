@@ -99,7 +99,7 @@ MEDIA_ROOT = env('DJANGO_MEDIA_ROOT', '/media/' + URL_PATH_PREFIX)
 
 # Localization
 LANGUAGE_CODE = env('DJANGO_USE_I18N', 'pt-br')
-TIME_ZONE = env('DJANGO_USE_I18N', 'UTC')
+TIME_ZONE = env('DJANGO_USE_I18N', 'America/Fortaleza')
 USE_I18N = env_as_bool('DJANGO_USE_I18N', True)
 USE_L10N = env_as_bool('DJANGO_USE_L10N', True)
 USE_TZ = env_as_bool('DJANGO_USE_TZ', True)
