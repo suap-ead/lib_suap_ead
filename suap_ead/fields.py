@@ -1,15 +1,15 @@
-from django.db.models import Model, CharField, DateField, BooleanField, NullBooleanField, DateTimeField, URLField
+from django.db.models import CharField
 from django.db.models import ForeignKey, CASCADE
 
 
-nullable={'null':True, 'blank':True}
-nullable_phone={'null':True, 'blank':True, 'help_text': '(00) 00000-0000', 'max_length': 15}
+nullable = {'null': True, 'blank': True}
+nullable_phone = {'null': True, 'blank': True, 'help_text': '(00) 00000-0000', 'max_length': 15}
 
 
 class StringField(CharField):
     def __init__(self, max_length=255, *args, **kwargs):
         kwargs['max_length'] = max_length
-        super().__init__( *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class NullStringField(StringField):
@@ -19,13 +19,14 @@ class NullStringField(StringField):
         kwargs['blank'] = True
         super().__init__(*args, **kwargs)
 
+
 class FK(ForeignKey):
 
     def __init__(self, verbose_name, to, on_delete=CASCADE, related_name=None, related_query_name=None,
                  limit_choices_to=None, parent_link=False, to_field=None,
                  db_constraint=True, **kwargs):
         super().__init__(
-            to, 
+            to,
             on_delete=on_delete,
             related_name=related_name,
             related_query_name=related_query_name,
@@ -35,6 +36,7 @@ class FK(ForeignKey):
             db_constraint=db_constraint,
             verbose_name=verbose_name,
             **kwargs)
+
 
 class NullFK(ForeignKey):
 
@@ -46,7 +48,7 @@ class NullFK(ForeignKey):
         if 'blank' in kwargs:
             kwargs.pop('blank')
         super().__init__(
-            to, 
+            to,
             on_delete=on_delete,
             related_name=related_name,
             related_query_name=related_query_name,
