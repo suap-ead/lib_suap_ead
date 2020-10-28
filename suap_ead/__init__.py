@@ -1,3 +1,5 @@
+from django.conf import settings
+
 name = "suap_ead"
 
 skins = [
@@ -13,3 +15,6 @@ skins = [
     ("navy", 'Marinha'),
     ("coral", 'Coral'),
 ]
+
+def get_setting(key, default):
+    return getattr(settings, key, default)
