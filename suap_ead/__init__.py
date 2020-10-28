@@ -16,5 +16,6 @@ skins = [
     ("coral", 'Coral'),
 ]
 
+
 def get_setting(key, default):
     return getattr(settings, key, default)
