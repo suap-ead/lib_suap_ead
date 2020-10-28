@@ -1,7 +1,7 @@
 # Common libs
 djangorestframework>=3.11.0
 PyJWT==1.7.1
-sc4py==0.1.1
+sc4py>=0.1.3
 sc4net==0.1.2
 
 # Development
